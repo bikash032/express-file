@@ -7,7 +7,7 @@ class Authcontroller {
     try {
       let data = req.body;
   if(req.file){
-    data.Image=req.file.filename;
+    data.image=req.file.filename;
   }
       
       

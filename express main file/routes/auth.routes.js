@@ -10,7 +10,7 @@ const dirPath=(req, res, next)=>{
     next();
 }
 
-routers.post("/register",authCheck,dirPath,uploader.single("Image"),authCtrl.register)
+routers.post("/register",dirPath,authCheck,uploader.single("image"),authCtrl.register)
 
 routers.post("/active/:token",authCtrl.activeuser)
 routers.post("/forget-password",authCtrl.forgetPasssword)

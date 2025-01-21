@@ -11,7 +11,7 @@ class Userservice {
           .pattern(/customer|seller/)
           .default("costumer")
           .required(),
-        Image: joi.string(),
+        image: joi.string(),
       });
       let response = rules.validate(data);
       console.log("success:", response.value);

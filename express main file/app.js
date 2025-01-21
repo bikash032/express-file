@@ -1,6 +1,7 @@
 
 const express=require("express");
 const routes=require("./routes");
+const { MulterError } = require("multer");
 const app=express();
 
 app.use(express.json());
@@ -9,9 +10,18 @@ app.use(express.urlencoded({extended:true}))
 app.use(routes)
 
 app.use((error, req, res, next)=>{
-    let statusCode=error.code || 5000;
+    let statusCode=error.code || 500;
     let msg=error.msg || "Resource not found";
     let data=error.content|| error
+
+    if(error instanceof MulterError){
+        res.json({
+            status:400,
+            msg:error.message,
+            data:null,
+            meta:null
+        })
+    }
     res.status(statusCode).json({
         data:data,
         msg:msg,
@@ -19,6 +29,8 @@ app.use((error, req, res, next)=>{
         meta:null
     })
 })
+
+
 const port=3012;
 const host="localhost";
 app.listen(port,host,(error)=>{
